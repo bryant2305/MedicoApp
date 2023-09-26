@@ -1,0 +1,101 @@
+﻿@using MedicoApp.Core.Application.ViewModels.ResultDeLab;
+@using MedicoApp.Core.Application.ViewModels.Paciente;
+@using MedicoApp.Core.Application.ViewModels.PruebaDeLab;
+@model List<ResultDeLabViewModel>
+@{
+    ViewData["Title"] = "Resultados Pendientes";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-3">
+
+
+             <div class="row">
+            <a asp-controller="ResultDeLab" asp-action="Create" class="btn btn-outline-success">Crear RESULTADO DE LAB</a>
+
+    </div>
+        </div>
+        <br />
+        <br />
+
+                   <form method="post" asp-controller="ResultDeLab" asp-action="Index">
+
+                       <button class="btn btn-sm btn-outline-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRegion" aria-expanded="false" aria-controls="collapseRegion">
+                Filtrar por cedula
+            </button>
+                        <div class="mb-3 collapse" id="collapseRegion">
+                            <div class="form-check">
+                                <input class="form-check-input" value="null" type="radio" name="PacienteId" id="category-all" />
+                                <label class="form-check-label" for="category-all">Todas</label>
+                            </div>
+                        </div>
+
+
+                         <div class="collapse" id="collapseRegion">
+                @foreach (PacienteViewModel paciente in ViewBag.Pacientes)
+                {
+
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                                <input class="form-check-input" value="@paciente.Id" type="radio" name="PacienteId" id="category-@paciente.Id" />
+                                            <label class="form-check-label" for="category-@paciente.Id">@paciente.Cedula</label>
+                                        </div>
+                                    </div>
+                }
+
+                        <button type="submit" class="btn btn-success">Filtrar</button>
+
+                    </form>
+
+
+                </div>
+            </div>
+
+             </div>
+            </div
+            </div>
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+
+    </div>
+
+    <div class="row">
+
+        @if (Model == null || Model.Count == 0)
+        {
+                                <h2>No hay resultados de pruebas pendientes</h2>
+        }
+        else
+        {
+            @foreach (ResultDeLabViewModel item in Model)
+            {
+                                                        <div class="col-5">
+                                                            <div class="card shadow-sm">                       
+
+                                                                        <div class="card-body">
+                                                                     <h6 class="card-title"> Nombre del resultado : @item.Name  </h6>
+                                                                                                            <h6 class="card-title">Nombre del Paciente :@item.PacienteName</h6>
+                                                                                                             <h6 class="card-title"> Apellido: @item.Apellido</h6>
+                            @* <h6 class="card-title"> Cedula:@item.Cedula</h6>*@
+                                                                                                               <h6 class="card-title">Prueba Del laboratorio Paciente :@item.PruebaDeLabName</h6>
+
+
+                                                                            <div class="d-flex justify-content-between align-items-center">
+                                                                                <div class="btn-group">
+                                                                                             <a asp-controller="ResultDeLab" asp-action="ConfirmResult" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Reportar Resultados</a>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+            }
+        }
+    </div>
+
+</div>

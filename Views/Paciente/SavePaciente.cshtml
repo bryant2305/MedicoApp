@@ -1,0 +1,88 @@
+﻿@using MedicoApp.Core.Application.ViewModels.Paciente;
+@model SavePacienteViewModel
+@{
+    ViewData["Title"] = "SavePaciente";
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Guardar Paciente";
+}
+
+<h1>SavePaciente</h1>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando el Paciente: {Model.Name}" : "Creando un Paciente")</h4>
+                </div>
+                <div class="card-body">
+
+                    <form method="post" enctype="multipart/form-data" asp-controller="Paciente" asp-action="@(editMode ? "Edit":"Create")">
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nombre: </label>
+                            <input type="text" asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Apellido" class="form-label">Apellido: </label>
+                           <input type="text" asp-for="Apellido" class="form-control"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label">Phone: </label>
+                            <input type="text" asp-for="Phone" class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Direccion" class="form-label">Direccion: </label>
+                           <input type="text" asp-for="Direccion" class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Cedula" class="form-label">Cedula: </label>
+                            <input type="text" asp-for="Cedula" class="form-control"/>
+                        </div>
+                         <div class="mb-3">
+                            <label asp-for="FechaDeNacimiento" class="form-label">Fecha De Nacimiento: </label>
+                            <input type="date" asp-for="FechaDeNacimiento" class="form-control"/>
+                        </div>
+                         <div class="mb-3">
+                        <label asp-for="File" class="form-label">Seleccione un archivo:</label>
+
+                            @if (editMode)
+                            {
+                                        <input asp-for="File" class="form-control" />
+                            }
+                            else
+                            {
+                                        <input required asp-for="File" class="form-control" />
+                            }
+
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+                        <div class="mb-3">
+                            <label asp-for="Fumador" class="form-label">Es fumador? </label>
+                           <input type="text" asp-for="Fumador" class="form-control"/>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Alergias" class="form-label">Tiene alergias? </label>
+                           <input type="text" asp-for="Alergias" class="form-control">
+                        </div>
+
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a asp-controller="Paciente" asp-action="Index" class="btn btn-warning">Volver atras</a>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

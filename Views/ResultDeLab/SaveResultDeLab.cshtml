@@ -1,0 +1,70 @@
+﻿@using MedicoApp.Core.Application.ViewModels.ResultDeLab;
+@model SaveResultDeLabViewModel
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Guardar producto";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando el producto: {Model.Name}" : "Creando nuevo resultado")</h4>
+                </div>
+                <div class="card-body">
+
+
+                               <form method="post" asp-controller="ResultDeLab" asp-action="@(editMode ? "Edit":"Create")">
+
+
+                                 <div class="mb-3">
+                                <label asp-for="Name" class="form-label">Nombre del resultado: </label>
+                                <input type="text" asp-for="Name" class="form-control" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="PacienteId" class="form-label"> Nombre del Paciente: </label>
+                                    <select asp-for="PacienteId" asp-items="@(new SelectList(Model.PacinetesList,"Id","Name"))" class="form-select">
+                                    <option value="0">Seleccione una opcion</option>
+
+                                </select>
+                                 <span asp-validation-for="PacienteId" class="text-danger"></span>
+                            </div>
+
+                             <div class="mb-3">
+                                <label asp-for="Apellido" class="form-label">Apellido: </label>
+                                <input type="text" asp-for="Apellido" class="form-control" />
+                            </div>
+
+                       
+
+
+                            <div class="mb-3">
+                                <label asp-for="PruebaDeLabId" class="form-label">Prueba de laboratorio del paciente: </label>
+                                    <select asp-for="PruebaDeLabId" asp-items="@(new SelectList(Model.PruebaDeLabList,"Id","Name"))" class="form-select">
+                                    <option value="0">Seleccione una opcion</option>
+
+                                </select>
+                                 <span asp-validation-for="PruebaDeLabId" class="text-danger"></span>
+                            </div>
+
+                            <input type="hidden" asp-for="Id" />
+
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a asp-controller="Citas" asp-action="Index" class="btn btn-warning">Volver atras</a>
+
+                        </form>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

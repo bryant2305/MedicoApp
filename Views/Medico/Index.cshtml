@@ -1,0 +1,49 @@
+﻿@using MedicoApp.Core.Application.ViewModels.Medico;
+@model List<MedicoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+        <div class="col-3 offset-9">
+            <a asp-controller="Medico" asp-action="Create" class="btn btn-outline-success">Crear nuevo medico</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @if (Model == null || Model.Count == 0)
+        {
+                    <h2>No hay Medicos</h2>
+        }
+        else
+        {
+            @foreach (MedicoViewModel item in Model)
+            {
+                                <div class="col-4">
+                                    <div class="card shadow-sm">                     
+                                                     <img class="bd-placeholder-img card-img-top img-product-size" src="@item.ImageUrl" />
+                                        <div class="card-body">
+                                                             <h4 class="card-title"  >Nombre: @item.Name</h4>
+                                                             <h4 class="card-title"> Apellido: @item.Apellido</h4>
+                                                             <p class="card-text"> Telefono: @item.Phone</p>
+                                                             <p class="card-text" > Cedula: @item.Cedula</p>
+                                                             <p class="card-text" > Email: @item.Email</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <a asp-controller="Medico" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                                    <a asp-controller="Medico" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            }
+        }
+    </div>
+
+</div>

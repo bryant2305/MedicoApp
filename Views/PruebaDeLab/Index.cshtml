@@ -1,0 +1,49 @@
+﻿@using MedicoApp.Core.Application.ViewModels.PruebaDeLab;
+@model List<PruebaDeLabViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+        <div class="col-3 offset-9">
+            <a asp-controller="PruebaDeLab" asp-action="Create" class="btn btn-outline-success">Crear prueba de laboratorio</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @if (Model == null || Model.Count == 0)
+        {
+                            <h2>No hay pruebas de laboratorio</h2>
+        }
+        else
+        {
+            @foreach (PruebaDeLabViewModel item in Model)
+            {
+                                                <div class="col-4">
+                                                    <div class="card shadow-sm">                       
+
+                                                                <div class="card-body">
+                                                                            <h4 class="card-title">@item.Name</h4>
+
+
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <div class="btn-group">
+                                                                            <a asp-controller="PruebaDeLab" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                                                             <a asp-controller="PruebaDeLab" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            }
+        }
+    </div>
+
+</div>
+
+

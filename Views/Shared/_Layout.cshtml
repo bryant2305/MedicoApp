@@ -1,0 +1,113 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using MedicoApp.Core.Application.Helpers;
+@using MedicoApp.Core.Application.ViewModels.User;
+@using MedicoApp.Core.Application.ViewModels.Paciente;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var User = httpContextAccessor.HttpContext.Session.Get<UserViewModel>("user");
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MedicoApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MedicoApp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="@(User!= null ? "Home" : "User")" asp-action="Index">MedicoApp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+
+
+
+
+                        @if (User != null)
+                        {
+
+                            @if (User.Admin)
+                            {
+                                
+
+                                                                                    <li class="nav-item">
+                                                                                            <a class="nav-link text-dark" asp-area="" asp-controller="Medico" asp-action="Index">Medico</a>
+                                                                                        </li>
+
+                                                                                    <li class="nav-item">
+                                                                                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="MantUser">Mantenimiento usuarios</a>
+                                                                                        </li>
+
+                                                                                          <li class="nav-item">
+                                                                                    <a class="nav-link text-dark" asp-area="" asp-controller="PruebaDeLab" asp-action="Index">PruebaDeLab</a>
+                                                                     </li>
+
+
+
+
+
+                            }
+                            if (!User.Admin)
+                            {
+                                       
+                                                 <li class="nav-item">
+                                                                    <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="Index">Paciente</a>
+                                                                          </li>
+
+                                                                      <li class="nav-item">
+                                                                          <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
+                                                                                      </li>
+                                                                                       <li class="nav-item">
+                                                                               <a class="nav-link text-dark" asp-area="" asp-controller="ResultDeLab" asp-action="Index">Result de lab</a>
+                                                                                                    </li>
+
+                            }
+
+
+
+
+                        }
+                        else
+                        {
+                                     <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Registrate</a>
+                                    </li>
+
+
+                        }
+                                  <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="LogOut">Cerrar seccion</a>
+                                </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

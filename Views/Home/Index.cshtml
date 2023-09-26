@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using MedicoApp.Core.Application.Helpers;
+@using MedicoApp.Core.Application.ViewModels.User;
+@using MedicoApp.Core.Application.ViewModels.Paciente;
+@inject IHttpContextAccessor httpContextAccessor
+@{
+    var User = httpContextAccessor.HttpContext.Session.Get<UserViewModel>("user");
+
+}
+@if (User.Admin)
+                            {
+<h4>ADMINISTRADOR</h4>
+
+
+                                                                            <li class="nav-item">
+                                                                                    <a class="nav-link text-dark" asp-area="" asp-controller="Medico" asp-action="Index">Medico</a>
+                                                                                </li>
+
+                                                                            <li class="nav-item">
+                                                                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="MantUser">Mantenimiento usuarios</a>
+                                                                                </li>
+
+                                                                                  <li class="nav-item">
+                                                                            <a class="nav-link text-dark" asp-area="" asp-controller="PruebaDeLab" asp-action="Index">PruebaDeLab</a>
+                                                             </li>
+
+
+
+
+                                                
+                            }
+                            @if (!User.Admin)
+                            {
+                                <h4>ASISTENTE</h4>
+                                         <li class="nav-item">
+                                                            <a class="nav-link text-dark" asp-area="" asp-controller="Paciente" asp-action="Index">Paciente</a>
+                                                                  </li>
+
+                                                              <li class="nav-item">
+                                                                  <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
+                                                                              </li>
+                                                                               <li class="nav-item">
+                                                                       <a class="nav-link text-dark" asp-area="" asp-controller="ResultDeLab" asp-action="Index">Result de lab</a>
+                                                                                            </li>
+                                                
+                            }

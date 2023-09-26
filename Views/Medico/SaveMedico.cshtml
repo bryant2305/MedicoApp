@@ -1,0 +1,75 @@
+﻿@using MedicoApp.Core.Application.ViewModels.Medico;
+@model SaveMedicoViewModel
+@{
+    ViewData["Title"] = "SaveMedico";
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Guardar Medico";
+}
+
+<h1>SaveMedico</h1>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando el Medico: {Model.Name}" : "Creando un Medico")</h4>
+                </div>
+                <div class="card-body">
+
+                    <form method="post" enctype="multipart/form-data"  asp-controller="Medico" asp-action="@(editMode ? "Edit":"Create")">
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Nombre: </label>
+                            <input type="text" placeholder="Nombre" asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Apellido" class="form-label">Apellido: </label>
+                            <input type="text" placeholder="Apellido" asp-for="Apellido" class="form-control">
+                        </div>
+                          <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email: </label>
+                           <input type="text" placeholder="Email" asp-for="Email" class="form-control">
+                        </div>
+                          <div class="mb-3">
+                            <label asp-for="Cedula" class="form-label">Cedula: </label>
+                            <input type="text" placeholder="Cedula" asp-for="Cedula" class="form-control">
+                        </div>
+                         <div class="mb-3">
+                        <label asp-for="File" class="form-label">Seleccione un archivo:</label>
+
+                            @if (editMode)
+                            {
+                                    <input asp-for="File" class="form-control" />
+                            }
+                            else
+                            {
+                                    <input required asp-for="File" class="form-control" />
+                            }
+
+                        <span asp-validation-for="File" class="text-danger"></span>
+                    </div>
+                          <div class="mb-3">
+                            <label asp-for="Phone" class="form-label">Phone: </label>
+                           <input type="text" placeholder="Telefono" asp-for="Phone" class="form-control">
+
+                        </div>
+
+                        <input type="hidden" asp-for="Id" />
+
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a asp-controller="Medico" asp-action="Index" class="btn btn-warning">Volver atras</a>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

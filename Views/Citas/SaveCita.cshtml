@@ -1,0 +1,72 @@
+﻿@using MedicoApp.Core.Application.ViewModels.Citas;
+@model SaveCitasViewModel
+@{
+    bool editMode = Model.Id == 0 ? false : true;
+    ViewData["Title"] = "Guardar cita";
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h4>@(editMode ? $"Editando la cita: {Model.Name}" : "Creando una cita")</h4>
+                </div>
+                <div class="card-body">
+
+
+                               <form method="post" asp-controller="Citas" asp-action="@(editMode ? "Edit":"Create")">
+
+                            <div class="mb-3">
+                                <label asp-for="Name" class="form-label">Nombre de la cita: </label>
+                                <input type="text" asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="FechaDeLaCita" class="form-label">Fecha De La Cita: </label>
+                               <input type="text" asp-for="FechaDeLaCita" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="HoraDeLaCita" class="form-label">hora de la cita: </label>
+                                <input type="text" asp-for="HoraDeLaCita" class="form-control" />
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label asp-for="PacienteId" class="form-label">Paciente: </label>
+                                    <select asp-for="PacienteId" asp-items="@(new SelectList(Model.PacinetesList,"Id","Name"))" class="form-select">
+                                    <option value="0">Seleccione una opcion</option>
+
+                                </select>
+                                 <span asp-validation-for="PacienteId" class="text-danger"></span>
+                            </div>
+                                <div class="mb-3">
+                                    <label asp-for="MedicoId" class="form-label">Medico: </label>
+                                            <select asp-for="MedicoId" asp-items="@(new SelectList(Model.MedicosList,"Id","Name"))" class="form-select">
+                                        <option value="0">Seleccione una opcion</option>
+
+                                    </select>
+                                         <span asp-validation-for="MedicoId" class="text-danger"></span>
+                                </div>
+
+                            <input type="hidden" asp-for="Id" />
+
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a asp-controller="Citas" asp-action="Index" class="btn btn-warning">Volver atras</a>
+
+                        </form>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

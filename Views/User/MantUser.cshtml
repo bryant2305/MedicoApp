@@ -1,0 +1,44 @@
+﻿@using MedicoApp.Core.Application.ViewModels.User;
+@model List<UserViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+        <div class="col-3 offset-9">
+            <a  asp-controller="User" asp-action="Create" class="btn btn-outline-success">Crear nuevo usuario</a>
+        </div>
+    </div>
+
+    <div class="row">
+
+
+        @foreach (UserViewModel item in Model)
+        {
+                                            <div class="col-4">
+                                                <div class="card shadow-sm">                       
+
+                                                    <div class="card-body">
+                                                                <h6 class="card-title">UserName: @item.Username</h6>
+                                                                <h6 class="card-title">Name: @item.Name</h6>
+                                                                <h6 class="card-title">Apellido: @item.Apellido</h6>
+                                                                <h6 class="card-title">Email: @item.Email</h6>
+
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="btn-group">
+                                                                <a asp-controller="User" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Editar</a>
+                                                                 <a asp-controller="User" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Borrar</a>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+        }
+
+    </div>
+
+</div>

@@ -1,0 +1,34 @@
+﻿@using MedicoApp.Core.Application.ViewModels.ResultDeLab;
+@model SaveResultDeLabViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="row">
+
+    <div class="col-6 offset-3" >
+        <div class="card">
+
+            <div class="card-body">
+
+                <form method="post" asp-controller="ResultDeLab" asp-action="DeletePost">
+
+                    <input type="hidden" asp-for="Id" />
+                     <div class="mb-3">
+                                <label asp-for="Apellido" class="form-label">Estado De la prueba: </label>
+                                 <select class="form-select">
+                                     <option>Completada</option>
+                                 </select>
+                                <span asp-validation-for="Apellido" class="text-danger"></span>
+                            </div>
+                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                    <a asp-controller="ResultDeLab" asp-action="Index" class="btn btn-warning">Cancelar</a>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
